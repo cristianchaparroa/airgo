@@ -48,11 +48,11 @@ Based on
 
 
 
-#### Documentation
+### Documentation
 
 
 
-##### Usage
+### Usage
 
 ```go
 api := airgo.NewApi()
@@ -60,12 +60,12 @@ c := config.AppConfig()
 api.Setup(c)
 ```
 
-##### Login with email
+###  Login with email
 
 Returns an access_token, given a valid user account email and password
 
 ```go
-params := url.Values{}
+params := &url.Values{}
 params.Add("username", "YOUR_EMAIL")
 params.Add("password", "YOUR_PASSWORD")
 params.Add("locale", "en-US")
@@ -92,10 +92,34 @@ The following are the Default params
 
 
 
-##### Listing search
+### Listing search
 
 Returns listings that fit the given search parameters.
+```go
+params := &url.Values{}
 
+params.Add("locale", "en-US")
+params.Add("currency", "USD")
+params.Add("_format", "for_search_results_with_minimal_pricing")
+params.Add("_limit", "10")
+params.Add("_offset", "0")
+params.Add("fetch_facets", "true")
+params.Add("guests", "1")
+params.Add("ib", "false")
+params.Add("ib_add_photo_flow", "true")
+params.Add("location", "Lake Tahoe, CA, US")
+params.Add("min_bathrooms", "0")
+params.Add("min_bedrooms", "0")
+params.Add("min_beds", "1")
+params.Add("min_num_pic_urls", "10")
+params.Add("price_max", "210")
+params.Add("price_min", "0")
+params.Add("sort", "1")
+params.Add("user_lat", "37.3398634")
+params.Add("user_lng", "-122.0455164")
+
+results := api.ListingSearch(params)
+```
 The following are the params allowed to listing search
 
 | Param |      Description    |  Required |
@@ -127,4 +151,4 @@ The following are the Default required params
 | client_id |    API Key   |   YES |
 
 
-##### Get Reviews
+### Get Reviews
