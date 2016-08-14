@@ -49,7 +49,26 @@ func (a *Airgo) Login(params *url.Values) (AccessToken, error) {
 }
 
 // TODO: Implements Login with facebook
-func (a *Airgo) LoginFB() {}
+func (a *Airgo) LoginFB(params *url.Values) (AccessToken, error) {
+	var token AccessToken
+
+	params.Add("client_id", a.Conf.ClientID)
+	//Required for Facebook authentication.
+	params.Add("assertion_type", "https://graph.facebook.com/me")
+	//For sign-in, as opposed to registration.
+	params.Add("prevent_account_creation", "true")
+	
+	resp, err := http.PostForm(Endpoints[Authorize], *params)
+	if err != nil {
+		return token, err
+	}
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return token, err
+	}
+	json.Unmarshal(b, &token)
+	return token, nil
+}
 
 // TODO: Implements Login wiht Gmail
 func (a *Airgo) LoginGM() {}

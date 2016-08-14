@@ -24,13 +24,31 @@ func TestLogin(t *testing.T) {
 	}
 
 	if token.Token == "" {
-		t.Errorf("Expected a token but get, %s: ", token.Token)
+		t.Errorf("Expected a token but get empty token, %s: ", token.Token)
 	}
 
 }
 
 //TODO: Make the test Login with FB
-func TestLoginFB(t *testing.T) {}
+func TestLoginFB(t *testing.T) {
+	api := NewAPI()
+	c := config.AppConfig()
+	api.Setup(c)
+	params := &url.Values{}
+
+	//user access token from facebook
+	params.Add("assertion", "USER_ACCESS_TOKEN_PROVIDED_BY_FB")
+
+	token, err := api.LoginFB(params)
+	fmt.Println(token)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if token.Token == "" {
+		t.Errorf("Expected a token but get empty token, %s: ", token.Token)
+	}
+}
 
 //TODO: Make the test Login with  Google
 func TestLoginGM(t *testing.T) {}
@@ -105,5 +123,5 @@ func TestGetReviews(t *testing.T) {
 
 }
 
-func TestViewUserInfo(t *testing.T)    {}
+func TestViewUserInfo(t *testing.T) {}
 func TestViewListingInfo(t *testing.T) {}
