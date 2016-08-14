@@ -28,50 +28,45 @@ func (a *Airgo) Setup(c config.Config) {
 	a.Conf = c
 }
 
+func (a *Airgo) authorize(params *url.Values) (AccessToken, error) {
+	var token AccessToken
+
+	resp, err := http.PostForm(Endpoints[Authorize], *params)
+	if err != nil {
+		return token, err
+	}
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return token, err
+	}
+	json.Unmarshal(b, &token)
+	return token, nil
+}
+
 // Login check the user and password in AirBnb
 // based on  http://airbnbapi.org/#login-by-email
 func (a *Airgo) Login(params *url.Values) (AccessToken, error) {
-	var token AccessToken
-
 	params.Add("client_id", a.Conf.ClientID)
 	params.Add("grant_type", "password")
-
-	resp, err := http.PostForm(Endpoints[Authorize], *params)
-	if err != nil {
-		return token, err
-	}
-	b, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return token, err
-	}
-	json.Unmarshal(b, &token)
-	return token, nil
+	token, err := a.authorize(params)
+	return token, err
 }
 
-// TODO: Implements Login with facebook
 func (a *Airgo) LoginFB(params *url.Values) (AccessToken, error) {
-	var token AccessToken
-
 	params.Add("client_id", a.Conf.ClientID)
-	//Required for Facebook authentication.
 	params.Add("assertion_type", "https://graph.facebook.com/me")
-	//For sign-in, as opposed to registration.
 	params.Add("prevent_account_creation", "true")
-	
-	resp, err := http.PostForm(Endpoints[Authorize], *params)
-	if err != nil {
-		return token, err
-	}
-	b, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return token, err
-	}
-	json.Unmarshal(b, &token)
-	return token, nil
+	token, err := a.authorize(params)
+	return token, err
 }
 
-// TODO: Implements Login wiht Gmail
-func (a *Airgo) LoginGM() {}
+func (a *Airgo) LoginGM(params *url.Values) (AccessToken, error) {
+	params.Add("client_id", a.Conf.ClientID)
+	params.Add("assertion_type", "https://www.googleapis.com/oauth2/v1/userinfo")
+	params.Add("prevent_account_creation", "true")
+	token, err := a.authorize(params)
+	return token, err
+}
 
 // ListingSearch
 func (a *Airgo) ListingSearch(params *url.Values) (response.ListingSearchResp, error) {

@@ -51,7 +51,9 @@ func TestLoginFB(t *testing.T) {
 }
 
 //TODO: Make the test Login with  Google
-func TestLoginGM(t *testing.T) {}
+func TestLoginGM(t *testing.T) {
+
+}
 
 func TestListingSearch(t *testing.T) {
 	api := NewAPI()
