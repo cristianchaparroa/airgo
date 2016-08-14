@@ -32,8 +32,7 @@ func TestLogin(t *testing.T) {
 //TODO: Make the test Login with FB
 func TestLoginFB(t *testing.T) {
 	api := NewAPI()
-	c := config.AppConfig()
-	api.Setup(c)
+	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
 	params := &url.Values{}
 
 	//user access token from facebook
@@ -57,8 +56,7 @@ func TestLoginGM(t *testing.T) {
 
 func TestListingSearch(t *testing.T) {
 	api := NewAPI()
-	c := config.AppConfig()
-	api.Setup(c)
+	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
 
 	// TEST 1, full parameters
 	params := &url.Values{}
@@ -113,8 +111,7 @@ func TestListingSearch(t *testing.T) {
 
 func TestGetReviews(t *testing.T) {
 	api := NewAPI()
-	c := config.AppConfig()
-	api.Setup(c)
+	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
 
 	params := &url.Values{}
 	_, err := api.GetReviews(params)

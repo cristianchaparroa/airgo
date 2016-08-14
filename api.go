@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/cristianchaparroa/airgo/config"
 	"github.com/cristianchaparroa/airgo/net"
 	"github.com/cristianchaparroa/airgo/response"
 )
@@ -17,15 +16,11 @@ type AccessToken struct {
 }
 
 type Airgo struct {
-	Conf config.Config
+	ApiKey string
 }
 
 func NewAPI() *Airgo {
 	return &Airgo{}
-}
-
-func (a *Airgo) Setup(c config.Config) {
-	a.Conf = c
 }
 
 func (a *Airgo) authorize(params *url.Values) (AccessToken, error) {
@@ -46,14 +41,14 @@ func (a *Airgo) authorize(params *url.Values) (AccessToken, error) {
 // Login check the user and password in AirBnb
 // based on  http://airbnbapi.org/#login-by-email
 func (a *Airgo) Login(params *url.Values) (AccessToken, error) {
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	params.Add("grant_type", "password")
 	token, err := a.authorize(params)
 	return token, err
 }
 
 func (a *Airgo) LoginFB(params *url.Values) (AccessToken, error) {
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	params.Add("assertion_type", "https://graph.facebook.com/me")
 	params.Add("prevent_account_creation", "true")
 	token, err := a.authorize(params)
@@ -61,7 +56,7 @@ func (a *Airgo) LoginFB(params *url.Values) (AccessToken, error) {
 }
 
 func (a *Airgo) LoginGM(params *url.Values) (AccessToken, error) {
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	params.Add("assertion_type", "https://www.googleapis.com/oauth2/v1/userinfo")
 	params.Add("prevent_account_creation", "true")
 	token, err := a.authorize(params)
@@ -76,7 +71,7 @@ func (a *Airgo) ListingSearch(params *url.Values) (response.ListingSearchResp, e
 		return response, err
 	}
 
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
@@ -92,7 +87,7 @@ func (a *Airgo) GetReviews(params *url.Values) (response.ReviewResponse, error) 
 	if err != nil {
 		return reviews, err
 	}
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
@@ -109,7 +104,7 @@ func (a *Airgo) ViewUserInfo(userID string, params *url.Values) (response.ViewUs
 	if err != nil {
 		return ui, err
 	}
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
@@ -128,7 +123,7 @@ func (a *Airgo) ViewListingInfo(listingID string, params *url.Values) (response.
 		return li, err
 	}
 
-	params.Add("client_id", a.Conf.ClientID)
+	params.Add("client_id", a.ApiKey)
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
