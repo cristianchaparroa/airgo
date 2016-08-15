@@ -14,7 +14,7 @@ Air-go covers the following features
 
 ###### Get Info Endpoints
 - [x] Listing search
-- [ ] Get Reviews
+- [x] Get Reviews
 - [ ] View User Info
 - [ ] View Listing info
 
@@ -170,3 +170,25 @@ The following are the Default required params
 
 
 ### Get Reviews
+
+Returns reviews for a given listing.
+
+```go
+params := &url.Values{}
+// Required field
+params.Add("role", "all")
+// required field
+params.Add("listing_id", "2056659")
+```
+
+
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| role |     |   Default required |
+| locale	 |    Desired language |   Optional |
+| currency	 |    Desired currency |   optional |
+| _format|  |    NO |
+| _limit | Number of reviews to show at a time|    Optional |
+| _offset | Number of reviews to offset. |    Optional |

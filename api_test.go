@@ -126,12 +126,16 @@ func TestGetReviews(t *testing.T) {
 	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
 
 	params := &url.Values{}
+	// Required field
+	params.Add("role", "all")
+	// required field
+	params.Add("listing_id", "2056659")
+
 	_, err := api.GetReviews(params)
 
 	if err != nil {
 		t.Error(err)
 	}
-
 }
 
 func TestViewUserInfo(t *testing.T)    {}
