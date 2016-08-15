@@ -213,3 +213,25 @@ viewUserInfoResponse, err := api.ViewUserInfo(userId, params)
 | _format| API result format (just put this -- it'll work without it, but it won't have as much data) |    Optional |
 | locale	 |    Desired language |   Optional |
 | currency	 |    Desired currency |   optional |
+
+
+
+### View Listing info
+
+Returns detailed information about a listing, given its ID (e.g., found in the search endpoint response).
+
+```go
+params := &url.Values{}
+params.Add("_format", "v1_legacy_for_p3")
+listingId := "5116458"
+
+viewListingInfoResponse, err := api.ViewListingInfo(listingId, params)
+```
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| _format| v1_legacy_for_p3, API result format (just put this -- it won't work without it) |    Default required|
+| locale	 |    Desired language |   Optional |
+| _source	 |     |   optional |
+| number_of_guests		 |  Determines listing availability dates based on the # of guests |   optional |  

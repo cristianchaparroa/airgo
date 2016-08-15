@@ -154,4 +154,17 @@ func TestViewUserInfo(t *testing.T) {
 	}
 
 }
-func TestViewListingInfo(t *testing.T) {}
+func TestViewListingInfo(t *testing.T) {
+	api := NewAPI()
+	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
+
+	params := &url.Values{}
+	params.Add("_format", "v1_legacy_for_p3")
+	listingId := "5116458"
+
+	_, err := api.ViewListingInfo(listingId, params)
+
+	if err != nil {
+		t.Error(err)
+	}
+}
