@@ -16,7 +16,7 @@ Air-go covers the following features
 - [x] Listing search
 - [x] Get Reviews
 - [x] View User Info
-- [ ] View Listing info
+- [X] View Listing info
 
 ###### Get User Endpoints
 - [ ] Create message thread
@@ -224,7 +224,6 @@ Returns detailed information about a listing, given its ID (e.g., found in the s
 params := &url.Values{}
 params.Add("_format", "v1_legacy_for_p3")
 listingId := "5116458"
-
 viewListingInfoResponse, err := api.ViewListingInfo(listingId, params)
 ```
 
