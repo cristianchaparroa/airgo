@@ -74,7 +74,7 @@ func TestListingSearch(t *testing.T) {
 	params := &url.Values{}
 	params.Add(Locale, "en-US")
 	params.Add(Currency, "USD")
-	params.Add(Format, FormatMinimalPricing)
+	params.Add(Format, FormatListingMinimalPricing)
 	params.Add(Limit, "10")
 	params.Add(Offset, "0")
 	params.Add(FetchFacets, "true")
