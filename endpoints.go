@@ -13,5 +13,5 @@ var Endpoints = map[string]string{
 	Search:          "https://api.airbnb.com/v2/search_results?",
 	GetReviews:      "https://api.airbnb.com/v2/reviews?",
 	ViewUserInfo:    "https://api.airbnb.com/v2/users",
-	ViewListingInfo: " https://api.airbnb.com/v2/listings",
+	ViewListingInfo: "https://api.airbnb.com/v2/listings",
 }

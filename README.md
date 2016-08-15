@@ -9,8 +9,8 @@ Air-go covers the following features
 ###### Login Endpoints
 
 - [x] Login with user and pass
-- [ ] Login with Facebook
-- [ ] Login with Google
+- [x] Login with Facebook
+- [x] Login with Google
 
 ###### Get Info Endpoints
 - [x] Listing search
@@ -56,8 +56,7 @@ Based on
 
 ```go
 api := airgo.NewApi()
-c := config.AppConfig()
-api.Setup(c)
+api.ApiKey = "API_kEY"
 ```
 
 ###  Login with email
@@ -90,6 +89,25 @@ The following are the Default params
 | grant_type|  Required for email authentication (as opposed to OAuth)  | YES  |
 | client_id |    API Key   |   YES |
 
+###  Login with Facebook
+Returns an access_token, given a valid Facebook user OAuth access token. [See the Facebook docs](https://developers.facebook.com/docs/facebook-login/access-tokens)  to learn how to generate an FB access token.
+
+```go
+params := &url.Values{}
+//user access token from facebook
+params.Add("assertion", "USER_ACCESS_TOKEN_PROVIDED_BY_FB")
+//get AirBnb token
+token, err := api.LoginFB(params)
+```
+###  Login with Google
+Returns an access_token, given a valid Google user OAuth access token. [See the Google docs](https://developers.google.com/identity/protocols/OAuth2) to learn how to generate a Google access token.
+```go
+params := &url.Values{}
+//user access token from Google
+params.Add("assertion", "USER_ACCESS_TOKEN_PROVIDED_BY_GOOGLE")
+//get AirBnb token
+token, err := api.LoginGoogle(params)
+```
 
 
 ### Listing search
