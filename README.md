@@ -19,7 +19,7 @@ Air-go covers the following features
 - [X] View Listing info
 
 ###### Get User Endpoints
-- [ ] Create message thread
+- [x] Create message thread
 - [ ] Get Messages
 - [ ] Get User info
 
@@ -234,3 +234,53 @@ viewListingInfoResponse, err := api.ViewListingInfo(listingId, params)
 | locale	 |    Desired language |   Optional |
 | _source	 |     |   optional |
 | number_of_guests		 |  Determines listing availability dates based on the # of guests |   optional |  
+
+
+
+### Create Message Thread
+
+Creates a message thread and a stay request, given a valid access token and a listing ID.
+
+NOTE: This is a logged-in endpoint and requires an access_token. See Login Endpoints.
+
+
+```go
+
+token, err := api.Login(paramsLogin)
+if err != nil {
+  // do something
+}
+
+params = &url.Values{}
+params.Add("locale", "en-US")
+params.Add("currency", "USD")
+params.Add("message", "Hi!")
+params.Add("checkout_date", "2018-04-02T22:00:00.000-0700")
+params.Add("checkin_date", "2018-04-01T00:00:00.000-0700")
+params.Add("number_of_guests", "1")
+params.Add("listing_id", "10166581")
+
+createdMessageThreadResponse, err := api.CreateMessageThread(token, params)
+
+
+```
+
+The following are the Form parameters that should be sent.
+
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| listing_id | ID of the listing you'd like to message | Required |
+| number_of_guests	 |  Number of guests in the request. | Required |
+| checkin_date| Requested check-in date.  | Required |
+| checkout_date |  Requested check-out date.  | Required |
+| message	 |  Initial message to send (empty to send request only).  | Required |
+| locale |  Desired language | Optional|
+| currency |  Currency for listings  | Optional |
+
+The following are the header parameters that should be sent.
+
+| Header |      Description    |  Field |
+|----------|:-------------:|:------:|
+| X-Airbnb-OAuth-Token|  Airbnb auth token (from auth-ing with login endpoints)| Required |

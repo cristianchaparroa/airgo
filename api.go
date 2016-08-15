@@ -128,6 +128,27 @@ func (a *Airgo) ViewListingInfo(listingID string, params *url.Values) (response.
 
 	client := net.HttpClient{}
 	b, err := client.Get(baseUrl.String())
+	if err != nil {
+		return li, err
+	}
 	json.Unmarshal(b, &li)
 	return li, nil
 }
+
+func (a *Airgo) CreateMessageThread(token AccessToken, params *url.Values) (response.CreateThreadResponse, error) {
+	var response response.CreateThreadResponse
+	headers := http.Header{}
+	headers.Set("X-Airbnb-OAuth-Token", token.Token)
+	params.Add(ClientID, a.ApiKey)
+
+	client := net.HttpClient{}
+	b, err := client.Post(Endpoints[CreateMessageThread], *params, headers)
+
+	if err != nil {
+		return response, err
+	}
+	json.Unmarshal(b, &response)
+	return response, nil
+}
+
+func (a *Airgo) GetMessages() {}
