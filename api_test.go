@@ -138,5 +138,20 @@ func TestGetReviews(t *testing.T) {
 	}
 }
 
-func TestViewUserInfo(t *testing.T)    {}
+func TestViewUserInfo(t *testing.T) {
+	api := NewAPI()
+	api.ApiKey = "3092nxybyb0otqw18e8nh5nty"
+
+	params := &url.Values{}
+	//if you don't specified the _format you will get a few info
+	params.Add("_format", "v1_legacy_show")
+	userId := "37950344"
+
+	_, err := api.ViewUserInfo(userId, params)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+}
 func TestViewListingInfo(t *testing.T) {}

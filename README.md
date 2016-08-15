@@ -15,7 +15,7 @@ Air-go covers the following features
 ###### Get Info Endpoints
 - [x] Listing search
 - [x] Get Reviews
-- [ ] View User Info
+- [x] View User Info
 - [ ] View Listing info
 
 ###### Get User Endpoints
@@ -179,9 +179,9 @@ params := &url.Values{}
 params.Add("role", "all")
 // required field
 params.Add("listing_id", "2056659")
+
+reviewResponse, err := api.GetReviews(params)
 ```
-
-
 
 | Param |      Description    |  Field |
 |----------|:-------------:|:------:|
@@ -189,6 +189,27 @@ params.Add("listing_id", "2056659")
 | role |     |   Default required |
 | locale	 |    Desired language |   Optional |
 | currency	 |    Desired currency |   optional |
-| _format|  |    NO |
+| _format|  |    Optional |
 | _limit | Number of reviews to show at a time|    Optional |
 | _offset | Number of reviews to offset. |    Optional |
+
+
+### View User info
+
+Returns detailed information about a user, given his/her/its ID (e.g., found in the view listing endpoint response).
+
+```go
+params := &url.Values{}
+//if you don't specified the _format you will get a few info
+params.Add("_format", "v1_legacy_show")
+userId := "37950344"
+viewUserInfoResponse, err := api.ViewUserInfo(userId, params)
+```
+
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| _format| API result format (just put this -- it'll work without it, but it won't have as much data) |    Optional |
+| locale	 |    Desired language |   Optional |
+| currency	 |    Desired currency |   optional |
