@@ -157,7 +157,7 @@ type Metadata struct {
 	Search             Search             `json:"search"`
 	UrgencyCommitment  UrgencyCommitment  `json:"urgency_commitment"`
 }
-type ListingSearchResp struct {
+type ListingSearchResponse struct {
 	Metadata      Metadata       `json:"metadata"`
 	SearchResults []SearchResult `json:"search_results"`
 }

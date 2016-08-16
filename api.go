@@ -64,8 +64,8 @@ func (a *Airgo) LoginGoogle(params *url.Values) (AccessToken, error) {
 }
 
 // ListingSearch
-func (a *Airgo) ListingSearch(params *url.Values) (response.ListingSearchResp, error) {
-	var response response.ListingSearchResp
+func (a *Airgo) ListingSearch(params *url.Values) (response.ListingSearchResponse, error) {
+	var response response.ListingSearchResponse
 	baseUrl, err := url.Parse(Endpoints[Search])
 	if err != nil {
 		return response, err

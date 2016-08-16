@@ -136,7 +136,7 @@ params.Add("sort", "1")
 params.Add("user_lat", "37.3398634")
 params.Add("user_lng", "-122.0455164")
 
-results := api.ListingSearch(params)
+listingSearchResp := api.ListingSearch(params)
 ```
 The following are the params allowed to listing search
 
@@ -323,6 +323,7 @@ if err != nil {
 params = &url.Values{}
 userInfoResponse, err := api.GetUserInfo(token, params)
 ```
+Note: To know more about [UserInfoResponse](#userInfoResponse)
 
 The following are the Form parameters that should be sent.
 
@@ -333,9 +334,21 @@ The following are the Form parameters that should be sent.
 | offset |  Number of message threads to offset in search  | Optional |
 | items_per_page |  Number of message threads to display at once  | Optional |
 | role|  Type of threads to retrieve. "guest", "host", or don't include this param for both  | Optional |
+| ralert_types[]|  Could be 	`reservation_request`	 | Optional |
 
 The following are the header parameters that should be sent.
 
 | Header |      Description    |  Field |
 |----------|:-------------:|:------:|
 | X-Airbnb-OAuth-Token|  Airbnb auth token (from auth-ing with login endpoints)| Required |
+
+
+### Responses
+
+#### <a name="accessTokenResponse"></a> AccessToken
+#### ListingSearchResponse  
+#### ReviewResponse
+#### ViewUserInfoResponse
+#### ViewListingInfoResponse
+#### CreatedMessageThreadResponse
+#### <a name="userInfoResponse"></a> UserInfoResponse
