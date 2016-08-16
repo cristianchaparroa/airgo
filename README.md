@@ -21,7 +21,7 @@ Air-go covers the following features
 ###### Get User Endpoints
 - [x] Create message thread
 - [ ] Get Messages
-- [ ] Get User info
+- [x] Get User info
 
 ###### Host Listing  Endpoints
 
@@ -246,7 +246,7 @@ NOTE: This is a logged-in endpoint and requires an access_token. See Login Endpo
 
 ```go
 
-token, err := api.Login(paramsLogin)
+token, err := api.Login(LoginParams)
 if err != nil {
   // do something
 }
@@ -278,6 +278,61 @@ The following are the Form parameters that should be sent.
 | message	 |  Initial message to send (empty to send request only).  | Required |
 | locale |  Desired language | Optional|
 | currency |  Currency for listings  | Optional |
+
+The following are the header parameters that should be sent.
+
+| Header |      Description    |  Field |
+|----------|:-------------:|:------:|
+| X-Airbnb-OAuth-Token|  Airbnb auth token (from auth-ing with login endpoints)| Required |
+
+
+### Get Messages
+
+Returns message threads, given an AirBnB access token (from authenticating with login endpoints).
+
+```go
+```
+The following are the Form parameters that should be sent.
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| locale |  Desired language | Optional|
+| offset |  Number of message threads to offset in search  | Optional |
+| items_per_page |  Number of message threads to display at once  | Optional |
+| role|  Type of threads to retrieve. "guest", "host", or don't include this param for both  | Optional |
+
+The following are the header parameters that should be sent.
+
+| Header |      Description    |  Field |
+|----------|:-------------:|:------:|
+| X-Airbnb-OAuth-Token|  Airbnb auth token (from auth-ing with login endpoints)| Required |
+
+
+#### Get User Info
+
+Get basic info about the logged-in user, such as name, picture, phone number, verifications, etc.
+
+```go
+token, err := api.Login(LoginParams)
+
+if err != nil {
+		//do something
+}
+
+params = &url.Values{}
+userInfoResponse, err := api.GetUserInfo(token, params)
+```
+
+The following are the Form parameters that should be sent.
+
+| Param |      Description    |  Field |
+|----------|:-------------:|:------:|
+| client_id |  API Key  | Default required |
+| locale |  Desired language | Optional|
+| offset |  Number of message threads to offset in search  | Optional |
+| items_per_page |  Number of message threads to display at once  | Optional |
+| role|  Type of threads to retrieve. "guest", "host", or don't include this param for both  | Optional |
 
 The following are the header parameters that should be sent.
 

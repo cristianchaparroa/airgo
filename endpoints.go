@@ -8,6 +8,7 @@ const (
 	ViewListingInfo     = "VIEW_LISTING_INFO"
 	CreateMessageThread = "CREATE_MESSAGE_THREAD"
 	GetMessages         = "GET_MESSAGES"
+	GetUserInfo         = "GET_USER_INFO"
 )
 
 var Endpoints = map[string]string{
@@ -18,4 +19,5 @@ var Endpoints = map[string]string{
 	ViewListingInfo:     "https://api.airbnb.com/v2/listings",
 	CreateMessageThread: "https://api.airbnb.com/v1/threads/create",
 	GetMessages:         "https://api.airbnb.com/v1/threads",
+	GetUserInfo:         "https://api.airbnb.com/v1/account/active",
 }

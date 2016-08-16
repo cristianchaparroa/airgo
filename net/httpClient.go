@@ -1,9 +1,9 @@
 package net
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
-	"fmt"
 	"net/url"
 	"strings"
 )
@@ -13,11 +13,11 @@ type IHttpClient interface {
 }
 
 type HttpClient struct {
-
 }
 
-func (h *HttpClient) Get(url string) ([]byte, error) {
+func (h *HttpClient) Get(url string, headers http.Header) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
+	req.Header = headers
 	if err != nil {
 		return nil, err
 	}
@@ -63,4 +63,3 @@ func (h *HttpClient) Post(url string, params url.Values, headers http.Header) ([
 	}
 	return b, nil
 }
-
