@@ -75,7 +75,8 @@ func (a *Airgo) ListingSearch(params *url.Values) (response.ListingSearchResp, e
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
-	b, err := client.Get(baseUrl.String())
+	headers := http.Header{}
+	b, err := client.Get(baseUrl.String(), headers)
 	json.Unmarshal(b, &response)
 	return response, nil
 }
@@ -91,7 +92,8 @@ func (a *Airgo) GetReviews(params *url.Values) (response.ReviewResponse, error) 
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
-	b, err := client.Get(baseUrl.String())
+	headers := http.Header{}
+	b, err := client.Get(baseUrl.String(), headers)
 	json.Unmarshal(b, &reviews)
 	return reviews, nil
 }
@@ -108,7 +110,8 @@ func (a *Airgo) ViewUserInfo(userID string, params *url.Values) (response.ViewUs
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
-	b, err := client.Get(baseUrl.String())
+	headers := http.Header{}
+	b, err := client.Get(baseUrl.String(), headers)
 	json.Unmarshal(b, &ui)
 	return ui, nil
 }
@@ -127,7 +130,8 @@ func (a *Airgo) ViewListingInfo(listingID string, params *url.Values) (response.
 	baseUrl.RawQuery = params.Encode()
 
 	client := net.HttpClient{}
-	b, err := client.Get(baseUrl.String())
+	headers := http.Header{}
+	b, err := client.Get(baseUrl.String(), headers)
 	if err != nil {
 		return li, err
 	}
@@ -151,4 +155,25 @@ func (a *Airgo) CreateMessageThread(token AccessToken, params *url.Values) (resp
 	return response, nil
 }
 
-func (a *Airgo) GetMessages() {}
+func (a *Airgo) GetMessages(token AccessToken, params *url.Values) {
+
+}
+
+func (a *Airgo) GetUserInfo(token AccessToken, params *url.Values) (response.UserInfoResponse, error) {
+	var response response.UserInfoResponse
+	baseUrl, err := url.Parse(Endpoints[GetUserInfo])
+	if err != nil {
+		return response, err
+	}
+
+	headers := http.Header{}
+	headers.Set("X-Airbnb-OAuth-Token", token.Token)
+
+	params.Add(ClientID, a.ApiKey)
+	baseUrl.RawQuery = params.Encode()
+
+	client := net.HttpClient{}
+	b, err := client.Get(baseUrl.String(), headers)
+	json.Unmarshal(b, &response)
+	return response, nil
+}
